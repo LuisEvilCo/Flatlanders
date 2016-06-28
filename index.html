@@ -2,14 +2,26 @@
     <head>
         <title>Angular.js</title>   
          <!-- bootstrap-->
-         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" 
+         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" >
     </head>
-<body>
-    <!-- AngularJS -->
-    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script> 
-    <!-- app.js -->
-    <script type="text/javascript" src="js/app.js"> </script>
 
-    <p>{{"hello " + "you"}}</p> 
+<body>
+
+<!-- AngularJS -->
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
+<!-- app.js -->
+<script type="text/javascript" src="js/app.js"> </script>
+
+<div ng-controller="StoreController as store">
+   <div ng-repeat="product in store.products">
+    <div ng-hide="product.soldOut">
+       <h1> {{product.name}} </h1>
+       <h2> {{product.price}} </h2>
+       <p> {{product.description}} </p>
+       <button ng-show="product.canPurchase"> Add to cart </button>
+    </div>
+   </div>
+</div>
+
 </body>
 </html>
