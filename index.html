@@ -1,5 +1,6 @@
 <html ng-app="store">
     <head>
+      <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
         <title>Angular.js</title>   
          <!-- bootstrap-->
          <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" >
@@ -13,21 +14,41 @@
 <script type="text/javascript" src="js/app.js"> </script>
 
 <ul class="list-group">
+
     <li class="list-group-item" ng-repeat="product in store.products | orderBy:'name'">
         <h3>
             {{product.name}} 
             <em class="pull-right"> {{product.price | currency }}</em>
-        </h3>
+        </h3>   
+
         <!-- Image Gallery  -->
       <div class="gallery" ng-show="product.images.length" ng-controller="GalleryController as gallery">
+
         <div class="img-wrap">
-          <img ng-src="{{product.images[gallery.current]}}" />
+              <img ng-src="{{product.images[gallery.current]}}" class="center-block"/>
         </div>
+        
+        <br/>
+
+        <div class="table-responsive center-block">
+          <table class="table">
+            <tbody>
+              <tr>
+                <th ng-repeat="image in product.images" class="small-image"> 
+                  <img ng-src="{{image}}" ng-click="gallery.setCurrent($index)" class="img-responsive"  />
+                </th>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <!--
         <ul class="img-thumbnails clearfix">
           <li class="small-image pull-left thumbnail" ng-repeat="image in product.images">
-            <img ng-src="{{image}}" />
+            <img ng-src="{{image}}" ng-click="gallery.setCurrent($index)" class="img-responsive"  />
           </li>
         </ul>
+        -->
+
         <section ng-controller="PanelController as panel">
           <!-- navigation buttons -->
           <ul class="nav nav-pills">
@@ -41,18 +62,22 @@
                <a href ng-click="panel.selectTab(3)">Reviews</a> 
             </li>
           </ul>
+
           <!-- panels for the navigation -->
           <div class="panel" ng-show="panel.isSelected(1)">
             <h4>Description</h4>
             <blockquote>{{product.description}}</blockquote>
-          </div>
+        </div>
+
           <div class="panel" ng-show="panel.isSelected(2)">
             <h4>Specification</h4>
             <blockquote>Shine: {{product.shine}}</blockquote>
           </div>
+
           <div class="panel" ng-show="panel.isSelected(3)">
             <h4>Reviews</h4>
             <blockquote>None yet</blockquote>
+          </div>
         </section>
       </div>
 </ul>
